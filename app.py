@@ -7,7 +7,7 @@ with open('souvik.pkl', 'rb') as file:
     clf_loaded = pickle.load(file)
 
 # User input for RPM and AXIS
-rpm = st.number_input("Enter RPM", value=0, step=100)
+rpm = st.number_input("Enter RPM", value=500, step=100)
 axis = st.selectbox("Enter AXIS", options=['Z', 'Y'])
 
 # Dataframe to store RPM and AXIS values
