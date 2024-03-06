@@ -14,7 +14,6 @@ awscli==1.32.50
 awsebcli==3.20.6
 Babel==2.12.1
 backcall==0.2.0
-backports.zoneinfo==0.2.1
 bcrypt==4.0.1
 beautifulsoup4==4.12.2
 bleach==6.0.0
