@@ -18,7 +18,7 @@ uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
 if uploaded_file is not None:
     # Read the uploaded file and skip the first and third rows
-    df = pd.read_csv(uploaded_file, skiprows=[0, 2])
+    df = pd.read_csv(uploaded_file, skiprows=[0, 2,3])
 
     # Rename columns
     df.rename(columns={'X Unit(Hz)': 'FREQUENCY (Hz)', 'Y Unit(mm)': 'AMPLITUDE (mm)'}, inplace=True)
