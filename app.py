@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
 
 # Load the saved model
 with open('souvik.pkl', 'rb') as file:
