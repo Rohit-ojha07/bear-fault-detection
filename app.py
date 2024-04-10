@@ -63,3 +63,15 @@ if uploaded_file is not None:
     for index, row in df.iterrows():
         if row['Prediction'] == 0:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
+
+    print(f"PLot")
+    frequencies = df['FREQUENCY (Hz)'].unique()
+    OR_accuracy = clf_loaded.score(prediction_data, predictions)
+    HB_accuracy = clf_loaded.score(prediction_data, predictions)
+    plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
+    plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Classification Accuracy')
+    plt.title('Classification Accuracy for OR and HB')
+    plt.legend()
+    st.pyplot(plt)
