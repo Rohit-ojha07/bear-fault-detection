@@ -67,39 +67,17 @@ if uploaded_file is not None:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
 
     st.write(f"PLot")
-    # frequencies = df['FREQUENCY (Hz)'].unique()
-    # OR_accuracy = clf_loaded.score(prediction_data, predictions)
-    # HB_accuracy = clf_loaded.score(prediction_data, predictions)
-    # plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
-    # plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
-    # plt.xlabel('Frequency (Hz)')
-    # plt.ylabel('Classification Accuracy')
-    # plt.title('Classification Accuracy for OR and HB')
-    # plt.legend()
-    # st.pyplot(plt)
+    frequencies = df['FREQUENCY (Hz)'].unique()
+    OR_accuracy = clf_loaded.score(prediction_data, predictions)
+    HB_accuracy = clf_loaded.score(prediction_data, predictions)
+    plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
+    plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Classification Accuracy')
+    plt.title('Classification Accuracy for OR and HB')
+    plt.legend()
+    st.pyplot(plt)
 
-    OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
-    HB_accuracy = predictions[predictions == 1].shape[0] / predictions.shape[0]
-
-    fig = plt.figure(figsize=(8, 6))
-    ax = fig.add_subplot(111, projection='3d')
-
-    x = np.array([0, 1])  # x-axis: Outer Race (OR), Healthy Bearing (HB)
-    y = np.array([0, 1])  # y-axis: 0 (OR accuracy), 1 (HB accuracy)
-    z = np.zeros(2)       # z-axis: zeros
-
-    dx = dy = 0.5          # Width of the bars
-    dz = [OR_accuracy, HB_accuracy]
-
-    ax.bar3d(x, y, z, dx, dy, dz, color=['blue', 'green'])
-    ax.set_xticks([0.25, 1.25])
-    ax.set_xticklabels(['Outer Race (OR)', 'Healthy Bearing (HB)'])
-    ax.set_yticks([0.5, 1.5])
-    ax.set_yticklabels(['OR Accuracy', 'HB Accuracy'])
-    ax.set_zlabel('Accuracy')
-    ax.set_title('Classification Accuracy for OR and HB in 3D')
-
-    st.pyplot(fig)
     # frequencies = df['FREQUENCY (Hz)'].unique()
     # OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
     # HB_accuracy = predictions[predictions == 1].shape[0] / predictions.shape[0]
