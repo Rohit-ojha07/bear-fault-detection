@@ -77,11 +77,34 @@ if uploaded_file is not None:
     # plt.title('Classification Accuracy for OR and HB')
     # plt.legend()
     # st.pyplot(plt)
-    frequencies = df['FREQUENCY (Hz)'].unique()
+
     OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
     HB_accuracy = predictions[predictions == 1].shape[0] / predictions.shape[0]
-    plt.bar(['Outer Race (OR)', 'Healthy Bearing (HB)'], [OR_accuracy, HB_accuracy], color=['blue', 'green'])
-    plt.ylim(0, 1)  # Set y-axis limit from 0 to 1 for accuracy
-    plt.ylabel('Classification Accuracy')
-    plt.title('Classification Accuracy for OR and HB')
-    st.pyplot(plt)
+
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
+
+    x = np.array([0, 1])  # x-axis: Outer Race (OR), Healthy Bearing (HB)
+    y = np.array([0, 1])  # y-axis: 0 (OR accuracy), 1 (HB accuracy)
+    z = np.zeros(2)       # z-axis: zeros
+
+    dx = dy = 0.5          # Width of the bars
+    dz = [OR_accuracy, HB_accuracy]
+
+    ax.bar3d(x, y, z, dx, dy, dz, color=['blue', 'green'])
+    ax.set_xticks([0.25, 1.25])
+    ax.set_xticklabels(['Outer Race (OR)', 'Healthy Bearing (HB)'])
+    ax.set_yticks([0.5, 1.5])
+    ax.set_yticklabels(['OR Accuracy', 'HB Accuracy'])
+    ax.set_zlabel('Accuracy')
+    ax.set_title('Classification Accuracy for OR and HB in 3D')
+
+    st.pyplot(fig)
+    # frequencies = df['FREQUENCY (Hz)'].unique()
+    # OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
+    # HB_accuracy = predictions[predictions == 1].shape[0] / predictions.shape[0]
+    # plt.bar(['Outer Race (OR)', 'Healthy Bearing (HB)'], [OR_accuracy, HB_accuracy], color=['blue', 'green'])
+    # plt.ylim(0, 1)  # Set y-axis limit from 0 to 1 for accuracy
+    # plt.ylabel('Classification Accuracy')
+    # plt.title('Classification Accuracy for OR and HB')
+    # st.pyplot(plt)
