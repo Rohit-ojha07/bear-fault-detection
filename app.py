@@ -66,7 +66,7 @@ if uploaded_file is not None:
         if row['Prediction'] == 0:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
 
-    print(f"PLot")
+    st.write(f"PLot")
     frequencies = df['FREQUENCY (Hz)'].unique()
     OR_accuracy = clf_loaded.score(prediction_data, predictions)
     HB_accuracy = clf_loaded.score(prediction_data, predictions)
