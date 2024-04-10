@@ -67,13 +67,21 @@ if uploaded_file is not None:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
 
     st.write(f"PLot")
+    # frequencies = df['FREQUENCY (Hz)'].unique()
+    # OR_accuracy = clf_loaded.score(prediction_data, predictions)
+    # HB_accuracy = clf_loaded.score(prediction_data, predictions)
+    # plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
+    # plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
+    # plt.xlabel('Frequency (Hz)')
+    # plt.ylabel('Classification Accuracy')
+    # plt.title('Classification Accuracy for OR and HB')
+    # plt.legend()
+    # st.pyplot(plt)
     frequencies = df['FREQUENCY (Hz)'].unique()
-    OR_accuracy = clf_loaded.score(prediction_data, predictions)
-    HB_accuracy = clf_loaded.score(prediction_data, predictions)
-    plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
-    plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
-    plt.xlabel('Frequency (Hz)')
+    OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
+    HB_accuracy = predictions[predictions == 1].shape[0] / predictions.shape[0]
+    plt.bar(['Outer Race (OR)', 'Healthy Bearing (HB)'], [OR_accuracy, HB_accuracy], color=['blue', 'green'])
+    plt.ylim(0, 1)  # Set y-axis limit from 0 to 1 for accuracy
     plt.ylabel('Classification Accuracy')
     plt.title('Classification Accuracy for OR and HB')
-    plt.legend()
     st.pyplot(plt)
