@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 
 # Load the saved model
-with open('souvik.pkl', 'rb') as file:
+with open('souvik_updated.pkl', 'rb') as file:
     clf_loaded = pickle.load(file)
 
 # User input for RPM and AXIS
