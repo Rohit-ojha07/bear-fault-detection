@@ -66,23 +66,23 @@ if uploaded_file is not None:
         if row['Prediction'] == 0:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
 
-    plt.figure(figsize=(8, 6))
-    y_proba_train = clf.predict_proba(X_train)[:, 1]
-    fpr_train, tpr_train, _ = roc_curve(y_train, y_proba_train)
-    auc_train = roc_auc_score(y_train, y_proba_train)
-    plt.plot(fpr_train, tpr_train, label=f'Training AUC = {auc_train:.2f}')
+    # plt.figure(figsize=(8, 6))
+    # y_proba_train = clf.predict_proba(X_train)[:, 1]
+    # fpr_train, tpr_train, _ = roc_curve(y_train, y_proba_train)
+    # auc_train = roc_auc_score(y_train, y_proba_train)
+    # plt.plot(fpr_train, tpr_train, label=f'Training AUC = {auc_train:.2f}')
 
-    y_proba_test = clf.predict_proba(X_test)[:, 1]
-    fpr_test, tpr_test, _ = roc_curve(y_test, y_proba_test)
-    auc_test = roc_auc_score(y_test, y_proba_test)
-    plt.plot(fpr_test, tpr_test, label=f'Testing AUC = {auc_test:.2f}')
+    # y_proba_test = clf.predict_proba(X_test)[:, 1]
+    # fpr_test, tpr_test, _ = roc_curve(y_test, y_proba_test)
+    # auc_test = roc_auc_score(y_test, y_proba_test)
+    # plt.plot(fpr_test, tpr_test, label=f'Testing AUC = {auc_test:.2f}')
 
-    plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve')
-    plt.legend()
-    plt.show()
+    # plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
+    # plt.xlabel('False Positive Rate')
+    # plt.ylabel('True Positive Rate')
+    # plt.title('ROC Curve')
+    # plt.legend()
+    # plt.show()
 
     # st.write(f"PLot")
     # frequencies = df['FREQUENCY (Hz)'].unique()
