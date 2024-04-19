@@ -66,17 +66,35 @@ if uploaded_file is not None:
         if row['Prediction'] == 0:
             st.write(f"Predicted fault at {row['FREQUENCY (Hz)']} Hz at {row['RPM ']} RPM")
 
-    st.write(f"PLot")
-    frequencies = df['FREQUENCY (Hz)'].unique()
-    OR_accuracy = clf_loaded.score(prediction_data, predictions)
-    HB_accuracy = clf_loaded.score(prediction_data, predictions)
-    plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
-    plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
-    plt.xlabel('Frequency (Hz)')
-    plt.ylabel('Classification Accuracy')
-    plt.title('Classification Accuracy for OR and HB')
+    plt.figure(figsize=(8, 6))
+    y_proba_train = clf.predict_proba(X_train)[:, 1]
+    fpr_train, tpr_train, _ = roc_curve(y_train, y_proba_train)
+    auc_train = roc_auc_score(y_train, y_proba_train)
+    plt.plot(fpr_train, tpr_train, label=f'Training AUC = {auc_train:.2f}')
+
+    y_proba_test = clf.predict_proba(X_test)[:, 1]
+    fpr_test, tpr_test, _ = roc_curve(y_test, y_proba_test)
+    auc_test = roc_auc_score(y_test, y_proba_test)
+    plt.plot(fpr_test, tpr_test, label=f'Testing AUC = {auc_test:.2f}')
+
+    plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
     plt.legend()
-    st.pyplot(plt)
+    plt.show()
+
+    # st.write(f"PLot")
+    # frequencies = df['FREQUENCY (Hz)'].unique()
+    # OR_accuracy = clf_loaded.score(prediction_data, predictions)
+    # HB_accuracy = clf_loaded.score(prediction_data, predictions)
+    # plt.plot(frequencies, [OR_accuracy]*len(frequencies), label='Outer Race (OR) Accuracy')
+    # plt.plot(frequencies, [HB_accuracy]*len(frequencies), label='Healthy Bearing (HB) Accuracy')
+    # plt.xlabel('Frequency (Hz)')
+    # plt.ylabel('Classification Accuracy')
+    # plt.title('Classification Accuracy for OR and HB')
+    # plt.legend()
+    # st.pyplot(plt)
 
     # frequencies = df['FREQUENCY (Hz)'].unique()
     # OR_accuracy = predictions[predictions == 0].shape[0] / predictions.shape[0]
